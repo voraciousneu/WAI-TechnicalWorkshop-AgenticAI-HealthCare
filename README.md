@@ -4,7 +4,12 @@ Women in AI technical workshop on using agentic AI in detecting user needs withi
 ## Usecase 1 (Dyslexia
 
 ```
-Agent Overview
+
+Goal:
+local React + Python (FastAPI) document reader that embeds the DyslexiaAssistAgent class and executes the adaptive assistive flow through the text reading exercise.
+
+
+Agent Overview:
 
 Instead of asking questions, the agent:
 
@@ -30,6 +35,52 @@ Engages the user with gentle coaching messages like
 
 “Would you like me to read the next sentence aloud?”
 “Try focusing on one line at a time — want a highlight ruler?”
+
+```
+
+###Run backend locally
+```
+cd backend
+pip install fastapi uvicorn
+uvicorn app:app --reload
+```
+
+###Run frontend locally
+```
+cd frontend
+npm install
+npm start
+
+```
+
+###End Result
+```
+When you type or paste text:
+
+It sends the text to backend /analyze.
+
+Backend returns confidence and assistive_mode.
+
+If assistive_mode is true, the app:
+
+Activates TTS (reads aloud),
+
+Adjusts line spacing and font,
+
+Shows feedback indicators and encouragement.
+
+```
+
+
+###Future Key refinements
+```
+Record typing speed or keystroke latency to refine fluency scoring.
+
+Add local caching of sessions to let the agent “learn” over time.
+
+Integrate Whisper ASR for speech-based reading.
+
+Store metrics (confidence trends, triggers) to personalize assistance per user.
 
 ```
 
