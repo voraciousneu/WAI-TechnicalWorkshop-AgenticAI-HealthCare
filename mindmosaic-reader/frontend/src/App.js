@@ -1,10 +1,10 @@
 import React from "react";
-import Reader from "./components/Reader";
+import MedicalReadingAssistant from "./components/Reader";
 
 function App() {
   return (
     <div>
-      <Reader />
+      <MedicalReadingAssistant />
     </div>
   );
 }

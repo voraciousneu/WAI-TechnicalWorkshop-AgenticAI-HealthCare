@@ -16,6 +16,28 @@ PY_ENV_NAME="myenv"
 
 echo "🔧 Setting up MindMosaic Reader environment..."
 
+# ---- CLEANUP EXISTING PROCESSES ----
+echo ""
+echo "🧹 Cleaning up existing processes..."
+
+# Kill any existing processes on our ports
+echo "   Stopping any existing backend on port $BACKEND_PORT..."
+lsof -ti:$BACKEND_PORT | xargs kill -9 2>/dev/null || true
+
+echo "   Stopping any existing frontend on port $FRONTEND_PORT..."
+lsof -ti:$FRONTEND_PORT | xargs kill -9 2>/dev/null || true
+
+# Kill any existing node/npm processes that might be related
+echo "   Stopping any existing Node.js processes..."
+pkill -f "react-scripts" 2>/dev/null || true
+pkill -f "npm start" 2>/dev/null || true
+
+echo "   Stopping any existing Python/FastAPI processes..."
+pkill -f "uvicorn.*app:app" 2>/dev/null || true
+
+# Small delay to ensure processes are fully terminated
+sleep 2
+
 # ---- BACKEND SETUP ----
 echo ""
 echo "🚀 Setting up FastAPI backend..."
@@ -31,9 +53,9 @@ fi
 source "$PY_ENV_NAME/bin/activate"
 
 # Install dependencies
-echo "📦 Installing Python dependencies (FastAPI, Uvicorn, Pydantic)..."
+echo "📦 Installing Python dependencies (FastAPI, Uvicorn, Pydantic, Groq)..."
 pip install -q --upgrade pip
-pip install -q fastapi uvicorn pydantic
+pip install -q -r requirements.txt
 
 # Run backend in background
 echo "▶️  Launching backend on port $BACKEND_PORT..."
@@ -91,7 +113,30 @@ FRONTEND_PID=$!
 cd ..
 
 # ---- CLEANUP HANDLER ----
-trap "echo '🛑 Shutting down servers...'; kill $BACKEND_PID $FRONTEND_PID" EXIT
+cleanup() {
+    echo ""
+    echo "🛑 Shutting down servers..."
+    
+    # Kill our specific processes
+    if [ ! -z "$BACKEND_PID" ]; then
+        echo "   Stopping backend (PID: $BACKEND_PID)..."
+        kill $BACKEND_PID 2>/dev/null || true
+    fi
+    
+    if [ ! -z "$FRONTEND_PID" ]; then
+        echo "   Stopping frontend (PID: $FRONTEND_PID)..."
+        kill $FRONTEND_PID 2>/dev/null || true
+    fi
+    
+    # Force kill any remaining processes on our ports
+    echo "   Force stopping any remaining processes on ports $BACKEND_PORT and $FRONTEND_PORT..."
+    lsof -ti:$BACKEND_PORT | xargs kill -9 2>/dev/null || true
+    lsof -ti:$FRONTEND_PORT | xargs kill -9 2>/dev/null || true
+    
+    echo "✅ Cleanup complete"
+}
+
+trap cleanup EXIT INT TERM
 
 echo ""
 echo "✅ MindMosaic Reader is now running!"
