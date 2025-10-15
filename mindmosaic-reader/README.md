@@ -63,10 +63,19 @@ echo "GROQ_API_KEY=your_api_key_here" > backend/.env
 
 ### **Step 2: Observe AI Analysis**
 The system will show:
-- **Complexity Score**: How difficult the text is to read (0-100%)
+- **Complexity Score (0.0-1.0)**: How difficult the medical text is to read and understand
+  - 0.0-0.3: Easy (simple, clear text)
+  - 0.3-0.6: Moderate (some complex terms)
+  - 0.6-0.8: Difficult (many medical terms)
+  - 0.8-1.0: Very Difficult (dense medical jargon)
+- **Confidence Score (0.0-1.0)**: How certain the Agentic AI is about its analysis
+  - 0.8-1.0: High confidence (very reliable)
+  - 0.6-0.8: Good confidence (generally reliable)
+  - 0.4-0.6: Moderate confidence (some uncertainty)
+  - 0.0-0.4: Low confidence (significant uncertainty)
 - **Medical Terms Detected**: Technical terms with simple definitions
 - **Safety Instructions**: Critical information highlighted in red
-- **Analysis Method**: Whether using LLM or rule-based analysis
+- **Analysis Method**: Whether using Agentic AI with LLM or rule-based analysis
 
 ### **Step 3: Experience Adaptations**
 - **Visual Changes**: Font size and spacing automatically adjust
@@ -102,6 +111,41 @@ The system will show:
 - **User Profile Evolution**: Adapts to individual needs over time
 - **Medical Term Learning**: Builds vocabulary knowledge
 - **Reading Progress Tracking**: Monitors comprehension improvements
+
+## 📊 Understanding the Scores
+
+### **Complexity Score (0.0 - 1.0)**
+Measures how difficult the medical text is to read and understand, especially for people with dyslexia:
+
+- **0.0 - 0.3: Easy** - Simple, clear medical text with basic terminology
+- **0.3 - 0.6: Moderate** - Some complex terms but manageable sentence structure
+- **0.6 - 0.8: Difficult** - Many medical terms and complex sentence structures
+- **0.8 - 1.0: Very Difficult** - Dense medical jargon with complex concepts
+
+**Factors considered:**
+- Medical terminology density and complexity
+- Sentence length and structure
+- Reading difficulty for dyslexia (visual processing, phonological awareness)
+- Text density and information complexity
+
+### **Confidence Score (0.0 - 1.0)**
+Indicates how certain the Agentic AI is about its analysis and adaptations:
+
+- **0.8 - 1.0: High Confidence** - Very reliable analysis and adaptations
+- **0.6 - 0.8: Good Confidence** - Generally reliable with minor uncertainties
+- **0.4 - 0.6: Moderate Confidence** - Some uncertainty, user review recommended
+- **0.0 - 0.4: Low Confidence** - Significant uncertainty, manual review advised
+
+**Factors considered:**
+- Quality of medical term identification
+- Accuracy of complexity assessment
+- Appropriateness of generated adaptations
+- Success of LLM analysis vs rule-based fallback
+
+### **How They Work Together**
+- **High Complexity + High Confidence** → Strong adaptations recommended
+- **Low Complexity + High Confidence** → Minimal adaptations needed
+- **High Complexity + Low Confidence** → Conservative adaptations, user review suggested
 
 ## 🔧 Technical Features
 

@@ -33,11 +33,8 @@ export default function MedicalReadingAssistant() {
             }
           }
 
-          // Auto-read if audio support is needed
-          if (result.audio_suggestions?.should_read_aloud) {
-            speakText("Medical reading assistant activated. Let me read this aloud.");
-            setTimeout(() => speakText(result.simplified_text), 1500);
-          }
+          // Note: Auto-read has been disabled - user must click "Read Aloud" button
+          // Audio will only play when user explicitly clicks the "Read Aloud" button
         } catch (error) {
           console.error("Analysis error:", error);
           // Set a fallback analysis result
@@ -141,47 +138,92 @@ export default function MedicalReadingAssistant() {
   };
 
   return (
-    <div style={{ padding: "2rem", maxWidth: "1200px", margin: "0 auto" }}>
-      <header style={{ marginBottom: "2rem", textAlign: "center" }}>
-        <h1 style={{ color: "#2c3e50", marginBottom: "0.5rem" }}>
+    <div style={{ 
+      padding: "2rem", 
+      maxWidth: "1200px", 
+      margin: "0 auto",
+      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      minHeight: "100vh",
+      borderRadius: "0"
+    }}>
+      <header style={{ 
+        marginBottom: "2rem", 
+        textAlign: "center",
+        background: "rgba(255, 255, 255, 0.95)",
+        padding: "2rem",
+        borderRadius: "20px",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+        backdropFilter: "blur(10px)"
+      }}>
+        <h1 style={{ 
+          color: "#2c3e50", 
+          marginBottom: "0.5rem",
+          fontSize: "2.5rem",
+          fontWeight: "700",
+          background: "linear-gradient(45deg, #667eea, #764ba2)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text"
+        }}>
           🏥 Medical Reading Assistant
         </h1>
-        <p style={{ color: "#7f8c8d", fontSize: "1.1rem" }}>
-          Agentic AI for Dyslexia-Friendly Medical Information
+        <p style={{ 
+          color: "#5a6c7d", 
+          fontSize: "1.2rem",
+          fontWeight: "500"
+        }}>
+          🤖 Agentic AI for Dyslexia-Friendly Medical Information
         </p>
       </header>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", marginBottom: "2rem" }}>
         {/* Input Section */}
-        <div>
-          <h3 style={{ color: "#34495e", marginBottom: "1rem" }}>Medical Text Input</h3>
+        <div style={{
+          background: "rgba(255, 255, 255, 0.95)",
+          padding: "1.5rem",
+          borderRadius: "15px",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+          backdropFilter: "blur(10px)"
+        }}>
+          <h3 style={{ 
+            color: "#2c3e50", 
+            marginBottom: "1rem",
+            fontSize: "1.3rem",
+            fontWeight: "600"
+          }}>📝 Medical Text Input</h3>
           <div style={{ marginBottom: "1rem" }}>
             <button 
               onClick={loadDemoText}
               style={{
-                padding: "0.5rem 1rem",
-                backgroundColor: "#3498db",
+                padding: "0.7rem 1.2rem",
+                background: "linear-gradient(45deg, #667eea, #764ba2)",
                 color: "white",
                 border: "none",
-                borderRadius: "4px",
+                borderRadius: "25px",
                 cursor: "pointer",
-                marginRight: "1rem"
+                marginRight: "1rem",
+                fontWeight: "600",
+                boxShadow: "0 4px 15px rgba(102, 126, 234, 0.3)",
+                transition: "all 0.3s ease"
               }}
             >
-              Load Demo Text
+              🚀 Load Demo Text
             </button>
             <button 
               onClick={() => { setText(""); setAnalysis(null); resetStyles(); }}
               style={{
-                padding: "0.5rem 1rem",
-                backgroundColor: "#95a5a6",
+                padding: "0.7rem 1.2rem",
+                background: "linear-gradient(45deg, #ff6b6b, #ee5a24)",
                 color: "white",
                 border: "none",
-                borderRadius: "4px",
-                cursor: "pointer"
+                borderRadius: "25px",
+                cursor: "pointer",
+                fontWeight: "600",
+                boxShadow: "0 4px 15px rgba(255, 107, 107, 0.3)",
+                transition: "all 0.3s ease"
               }}
             >
-              Clear
+              🗑️ Clear
             </button>
           </div>
           <textarea
@@ -194,23 +236,53 @@ export default function MedicalReadingAssistant() {
               fontSize: "1rem", 
               lineHeight: "1.5",
               padding: "1rem",
-              border: "2px solid #bdc3c7",
-              borderRadius: "8px",
-              fontFamily: "Arial, sans-serif"
+              border: "2px solid #e1e8ed",
+              borderRadius: "15px",
+              fontFamily: "Arial, sans-serif",
+              background: "rgba(255, 255, 255, 0.8)",
+              backdropFilter: "blur(5px)",
+              boxShadow: "inset 0 2px 10px rgba(0,0,0,0.05)",
+              transition: "all 0.3s ease"
             }}
           />
           {isAnalyzing && (
-            <div style={{ marginTop: "1rem", color: "#3498db", fontStyle: "italic" }}>
-              🤖 AI Agent analyzing text...
+            <div style={{ 
+              marginTop: "1rem", 
+              color: "#667eea", 
+              fontStyle: "italic",
+              fontWeight: "600",
+              textAlign: "center",
+              padding: "0.5rem",
+              background: "rgba(102, 126, 234, 0.1)",
+              borderRadius: "10px"
+            }}>
+              🤖 Agentic AI analyzing text...
             </div>
           )}
         </div>
 
         {/* Analysis Results */}
-        <div>
-          <h3 style={{ color: "#34495e", marginBottom: "1rem" }}>AI Analysis & Adaptations</h3>
+        <div style={{
+          background: "rgba(255, 255, 255, 0.95)",
+          padding: "1.5rem",
+          borderRadius: "15px",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+          backdropFilter: "blur(10px)"
+        }}>
+          <h3 style={{ 
+            color: "#2c3e50", 
+            marginBottom: "1rem",
+            fontSize: "1.3rem",
+            fontWeight: "600"
+          }}>🤖 Agentic AI Analysis & Adaptations</h3>
           {analysis ? (
-            <div style={{ backgroundColor: "#ecf0f1", padding: "1rem", borderRadius: "8px" }}>
+            <div style={{ 
+              background: "linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)", 
+              padding: "1.5rem", 
+              borderRadius: "12px",
+              border: "1px solid rgba(255,255,255,0.2)",
+              boxShadow: "0 5px 15px rgba(0,0,0,0.08)"
+            }}>
               {/* Complexity & Confidence */}
               <div style={{ marginBottom: "1rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
@@ -274,7 +346,7 @@ export default function MedicalReadingAssistant() {
 
               {/* Analysis Method */}
               <div style={{ marginTop: "1rem", padding: "0.5rem", backgroundColor: analysis.llm_enabled ? "#e8f5e8" : "#fff3cd", borderRadius: "4px" }}>
-                <strong>🤖 Analysis Method:</strong> {analysis.analysis_method || "Unknown"}
+                <strong>🤖 Analysis Method:</strong> {analysis.llm_enabled ? "Agentic AI using LLM" : "Rule-based Analysis"}
                 {analysis.llm_enabled ? (
                   <span style={{ color: "#27ae60", marginLeft: "0.5rem" }}>⚡ Groq LLM Enhanced</span>
                 ) : (
@@ -292,13 +364,15 @@ export default function MedicalReadingAssistant() {
             </div>
           ) : (
             <div style={{ 
-              backgroundColor: "#f8f9fa", 
+              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", 
               padding: "2rem", 
-              borderRadius: "8px",
+              borderRadius: "12px",
               textAlign: "center",
-              color: "#6c757d"
+              color: "white",
+              fontWeight: "500"
             }}>
-              Enter medical text to see AI analysis and dyslexia-friendly adaptations
+              <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>🤖</div>
+              Enter medical text to see Agentic AI analysis and dyslexia-friendly adaptations
             </div>
           )}
         </div>
@@ -306,15 +380,29 @@ export default function MedicalReadingAssistant() {
 
       {/* Simplified Text Display */}
       {analysis?.simplified_text && analysis.simplified_text !== text && (
-        <div style={{ marginTop: "2rem" }}>
-          <h3 style={{ color: "#34495e", marginBottom: "1rem" }}>📖 Simplified Version</h3>
+        <div style={{ 
+          marginTop: "2rem",
+          background: "rgba(255, 255, 255, 0.95)",
+          padding: "2rem",
+          borderRadius: "20px",
+          boxShadow: "0 15px 35px rgba(0,0,0,0.1)",
+          backdropFilter: "blur(10px)"
+        }}>
+          <h3 style={{ 
+            color: "#2c3e50", 
+            marginBottom: "1.5rem",
+            fontSize: "1.5rem",
+            fontWeight: "600",
+            textAlign: "center"
+          }}>📖 Simplified Version</h3>
           <div style={{
-            backgroundColor: "#e8f5e8",
-            padding: "1.5rem",
-            borderRadius: "8px",
+            background: "linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%)",
+            padding: "2rem",
+            borderRadius: "15px",
             border: "2px solid #27ae60",
             fontSize: analysis.visual_adaptations?.font_size || "1rem",
-            lineHeight: analysis.visual_adaptations?.line_height || "1.5"
+            lineHeight: analysis.visual_adaptations?.line_height || "1.5",
+            boxShadow: "0 5px 15px rgba(39, 174, 96, 0.2)"
           }}>
             {analysis.simplified_text}
           </div>
@@ -324,16 +412,19 @@ export default function MedicalReadingAssistant() {
                 <button 
                   onClick={() => speakText(analysis.simplified_text)}
                   style={{
-                    padding: "0.8rem 1.5rem",
-                    backgroundColor: "#27ae60",
+                    padding: "1rem 2rem",
+                    background: "linear-gradient(45deg, #27ae60, #2ecc71)",
                     color: "white",
                     border: "none",
-                    borderRadius: "6px",
+                    borderRadius: "25px",
                     cursor: "pointer",
-                    fontSize: "1rem",
+                    fontSize: "1.1rem",
                     display: "flex",
                     alignItems: "center",
-                    gap: "0.5rem"
+                    gap: "0.5rem",
+                    fontWeight: "600",
+                    boxShadow: "0 6px 20px rgba(39, 174, 96, 0.3)",
+                    transition: "all 0.3s ease"
                   }}
                 >
                   🔊 Read Aloud
@@ -343,16 +434,19 @@ export default function MedicalReadingAssistant() {
                   <button 
                     onClick={pauseReading}
                     style={{
-                      padding: "0.8rem 1.5rem",
-                      backgroundColor: "#f39c12",
+                      padding: "1rem 1.5rem",
+                      background: "linear-gradient(45deg, #f39c12, #e67e22)",
                       color: "white",
                       border: "none",
-                      borderRadius: "6px",
+                      borderRadius: "25px",
                       cursor: "pointer",
                       fontSize: "1rem",
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.5rem"
+                      gap: "0.5rem",
+                      fontWeight: "600",
+                      boxShadow: "0 4px 15px rgba(243, 156, 18, 0.3)",
+                      transition: "all 0.3s ease"
                     }}
                   >
                     ⏸️ Pause
@@ -360,16 +454,19 @@ export default function MedicalReadingAssistant() {
                   <button 
                     onClick={resumeReading}
                     style={{
-                      padding: "0.8rem 1.5rem",
-                      backgroundColor: "#3498db",
+                      padding: "1rem 1.5rem",
+                      background: "linear-gradient(45deg, #3498db, #2980b9)",
                       color: "white",
                       border: "none",
-                      borderRadius: "6px",
+                      borderRadius: "25px",
                       cursor: "pointer",
                       fontSize: "1rem",
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.5rem"
+                      gap: "0.5rem",
+                      fontWeight: "600",
+                      boxShadow: "0 4px 15px rgba(52, 152, 219, 0.3)",
+                      transition: "all 0.3s ease"
                     }}
                   >
                     ▶️ Resume
@@ -377,16 +474,19 @@ export default function MedicalReadingAssistant() {
                   <button 
                     onClick={stopReading}
                     style={{
-                      padding: "0.8rem 1.5rem",
-                      backgroundColor: "#e74c3c",
+                      padding: "1rem 1.5rem",
+                      background: "linear-gradient(45deg, #e74c3c, #c0392b)",
                       color: "white",
                       border: "none",
-                      borderRadius: "6px",
+                      borderRadius: "25px",
                       cursor: "pointer",
                       fontSize: "1rem",
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.5rem"
+                      gap: "0.5rem",
+                      fontWeight: "600",
+                      boxShadow: "0 4px 15px rgba(231, 76, 60, 0.3)",
+                      transition: "all 0.3s ease"
                     }}
                   >
                     ⏹️ Stop
@@ -395,7 +495,16 @@ export default function MedicalReadingAssistant() {
               )}
             </div>
             {isReading && (
-              <div style={{ marginTop: "0.5rem", color: "#27ae60", fontSize: "0.9rem" }}>
+              <div style={{ 
+                marginTop: "1rem", 
+                color: "#27ae60", 
+                fontSize: "1rem",
+                fontWeight: "600",
+                textAlign: "center",
+                padding: "0.5rem",
+                background: "rgba(39, 174, 96, 0.1)",
+                borderRadius: "10px"
+              }}>
                 🔊 Reading aloud...
               </div>
             )}
