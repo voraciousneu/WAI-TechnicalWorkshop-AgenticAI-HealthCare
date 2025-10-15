@@ -85,7 +85,7 @@ fi
 
 # Run frontend in background
 echo "▶️  Launching frontend on port $FRONTEND_PORT..."
-npm start -- --port "$FRONTEND_PORT" &
+PORT="$FRONTEND_PORT" BROWSER=none npm start &
 FRONTEND_PID=$!
 
 cd ..
